@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <title>Title</title>
+    <style type="text/css">
+        html{height:100%}
+        body{height:100%;margin:0px;padding:0px}
+        #container{height:100%}
+    </style>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=M15Ux4beOGYPeLcIIKRItfPin9dcAvus"></script>
+</head>
+<body>
+<div id="container"></div>
+<script >
+    //创建地图实例
+    var map = new BMap.Map("container");
+    //设置滚动条放大
+    map.enableScrollWheelZoom(true);
+    //设置中心点坐标
+    var point = new BMap.Point(114.064552, 22.548456);
+    //地图初始化，同时设置地图展示级别
+    map.centerAndZoom("深圳", 11);
+    // 添加带有定位的导航控件
+    var navigationControl = new BMap.NavigationControl({
+        // 靠左上角位置
+        anchor: BMAP_ANCHOR_TOP_LEFT,
+        // LARGE类型
+        type: BMAP_NAVIGATION_CONTROL_LARGE,
+        // 启用显示定位
+        enableGeolocation: true
+    });
+    map.addControl(navigationControl);
+    // 添加定位控件
+    var geolocationControl = new BMap.GeolocationControl();
+    geolocationControl.addEventListener("locationSuccess", function(e){
+        // 定位成功事件
+        var address = '';
+        address += e.addressComponent.province;
+        address += e.addressComponent.city;
+        address += e.addressComponent.district;
+        address += e.addressComponent.street;
+        address += e.addressComponent.streetNumber;
+        alert("当前定位地址为：" + address);
+    });
+    geolocationControl.addEventListener("locationError",function(e){
+        // 定位失败事件
+        alert(e.message);
+    });
+    map.addControl(geolocationControl);
+
+    var opts = {
+        position : point,    // 指定文本标注所在的地理位置
+        offset   : new BMap.Size(10, -24)    //设置文本偏移量
+    }
+    var label = new BMap.Label("广东深圳", opts);  // 创建文本标注对象
+    label.setStyle({
+        color : "red",
+        fontSize : "12px",
+        height : "20px",
+        lineHeight : "20px",
+        fontFamily:"微软雅黑",
+        background:"yellow"
+    });
+    map.addOverlay(label);
+
+
+    var marker = new BMap.Marker(point);  // 创建标注
+    map.addOverlay(marker);              // 将标注添加到地图中
+
+    marker.addEventListener("click",getAttr);
+
+    function getAttr(){
+        var p = marker.getPosition();       //获取marker的位置
+        alert("marker的位置是" + p.lng + "," + p.lat);
+    }
+    var pointA = new BMap.Point(114.061568,22.527958);  // 创建点坐标A--大渡口区
+    var pointB = new BMap.Point(113.937144,22.538767);  // 创建点坐标B--江北区
+    alert('从南山区政府到福田区政府的距离是：'+(map.getDistance(pointA,pointB)).toFixed(2)+' 米。');  //获取两点距离,保留小数点后两位
+    var polyline = new BMap.Polyline([pointA,pointB], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});  //定义折线
+    map.addOverlay(polyline);
+
+</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lmf.esdemo.mapper.UserMapper">
+    <resultMap id="UserResultMap" type="User">
+        <id column="usr_id" property="usrId"></id>
+        <result column="usr_name" property="usrName"></result>
+        <result column="usr_password" property="usrPassword"></result>
+        <result column="usr_role_id" property="usrRoleId"></result>
+        <result column="usr_flag" property="usrFlag"></result>
+    </resultMap>
+
+    <sql id="columns">
+        usr_id,usr_name,usr_password,usr_role_id,usr_flag
+    </sql>
+
+    <select id="getAll" resultMap="UserResultMap">
+        select
+        <include refid="columns"></include>
+        from sys_user
+    </select>
+
+</mapper>
