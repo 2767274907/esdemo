@@ -21,6 +21,12 @@ public class DirectRabbitConfig {
     DirectExchange TestDirectExchange(){
         return new DirectExchange("TestDirectExchange");
     }
+    //DirectExchange交换机 起名lonelyDirectExchange（直连型交互机）
+    @Bean
+    DirectExchange lonelyDirectExchange() {
+        return new DirectExchange("lonelyDirectExchange");
+    }
+
 
     //绑定 将队列和交互机绑定，并设置用于匹配键：TestDirectRouting
     @Bean

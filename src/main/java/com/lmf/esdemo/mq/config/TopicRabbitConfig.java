@@ -30,27 +30,6 @@ public class TopicRabbitConfig {
     }
 
     @Bean
-    public Queue msg1Queue() {
-        return new Queue("topic.msg1");
-    }
-    @Bean
-    public Queue msg2Queue() {
-        return new Queue("topic.msg2");
-    }
-    @Bean
-    public Queue msg3Queue() {
-        return new Queue("topic.msg3");
-    }
-    @Bean
-    public Queue msg4Queue() {
-        return new Queue("topic.msg4");
-    }
-    @Bean
-    public Queue msg5Queue() {
-        return new Queue("topic.msg5");
-    }
-
-    @Bean
     TopicExchange exchange() {
         return new TopicExchange("topicExchange");
     }
@@ -68,27 +47,6 @@ public class TopicRabbitConfig {
     @Bean
     Binding bindingExchangeMessage2() {
         return BindingBuilder.bind(secondQueue()).to(exchange()).with("topic.#");
-    }
-
-    @Bean
-    Binding bindingMsg1(){
-        return BindingBuilder.bind(msg1Queue()).to(exchange()).with("topic.msg1");
-    }
-    @Bean
-    Binding bindingMsg2(){
-        return BindingBuilder.bind(msg2Queue()).to(exchange()).with("topic.msg2");
-    }
-    @Bean
-    Binding bindingMsg3(){
-        return BindingBuilder.bind(msg3Queue()).to(exchange()).with("topic.msg3");
-    }
-    @Bean
-    Binding bindingMsg4(){
-        return BindingBuilder.bind(msg4Queue()).to(exchange()).with("topic.msg4");
-    }
-    @Bean
-    Binding bindingMsg5(){
-        return BindingBuilder.bind(msg5Queue()).to(exchange()).with("topic.#");
     }
 
 

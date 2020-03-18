@@ -17,23 +17,11 @@ public class FanoutRabbitConfig {
 
     @Bean
     public Queue queue1(){
-        return new Queue("que1");
+        return new Queue("fanout.A");
     }
     @Bean
     public Queue queue2(){
-        return new Queue("que2");
-    }
-    @Bean
-    public Queue queue3(){
-        return new Queue("que3");
-    }
-    @Bean
-    public Queue queue4(){
-        return new Queue("que4");
-    }
-    @Bean
-    public Queue queue5(){
-        return new Queue("que5");
+        return new Queue("fanout.B");
     }
 
     @Bean
@@ -49,19 +37,6 @@ public class FanoutRabbitConfig {
     @Bean
     Binding bindingExchange2(){
         return BindingBuilder.bind(queue2()).to(fanoutExchange());
-    }
-
-    @Bean
-    Binding bindingExchange3(){
-        return BindingBuilder.bind(queue3()).to(fanoutExchange());
-    }
-    @Bean
-    Binding bindingExchange4(){
-        return BindingBuilder.bind(queue4()).to(fanoutExchange());
-    }
-    @Bean
-    Binding bindingExchange5(){
-        return BindingBuilder.bind(queue5()).to(fanoutExchange());
     }
 
 }

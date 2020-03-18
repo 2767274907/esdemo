@@ -14,7 +14,6 @@ import java.util.Map;
 public class FanoutReceiverA {
  
     @RabbitHandler
-//    @RabbitListener(queues = "fanout.A")
     public void processA(Map testMessage) {
         System.out.println("FanoutReceiverA消费者收到消息  : " +testMessage.toString());
     }

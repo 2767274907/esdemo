@@ -16,7 +16,7 @@ import java.util.Map;
 public class TopicTotalReceiver {
 
     @RabbitHandler
-    public void process(String testMessage) {
+    public void process(Map testMessage) {
         System.out.println("TopicTotalReceiver消费者收到消息  : " + testMessage.toString());
     }
 }
